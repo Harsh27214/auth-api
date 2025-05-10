@@ -22,9 +22,9 @@ Base = declarative_base()
 engine = create_engine(database_url)
 SessionFactory = sessionmaker(bind=engine)
 
-def get_db():
-    db = SessionFactory()
+def create_session():
+    session = SessionFactory()
     try:
-        yield db
+        yield session
     finally:
-        db.close()
+        session.close()

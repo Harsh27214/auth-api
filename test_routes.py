@@ -38,7 +38,7 @@ class TestCreateUser:
     def test_create_user_weak_password(self, client, session):
         response = client.post("/users", json={"username": self.valid_username, "password": "WeakPassword"})
         assert response.status_code == 400
-        assert response.json() == {"detail": "Password must contain at least one uppercase, lowercase, digit, and special character and be at least 8 characters long"}
+        assert response.json() == {"detail": "Password must contain more than seven characters with at least one lowercase letter, uppercase letter, digit, and special symbol"}
 
     def test_create_user_missing_username(self, client, session):
         response = client.post("/users", json={"password": self.strong_password})
