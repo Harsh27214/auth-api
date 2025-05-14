@@ -1,5 +1,8 @@
+# files
 .env
-.venv/
+
+# directories
 __pycache__/
+.venv/
 .pytest_cache/
 .ropeproject/
