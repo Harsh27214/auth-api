@@ -32,13 +32,13 @@ class TestCreateUser:
 
     def test_create_user_invalid_username(self, client, session):
         response = client.post("/users", json={"username": "Bo", "password": self.strong_password})
-        assert response.status_code == 400
-        assert response.json() == {"detail": "Username must be 3 to 20 characters long"}
+        assert response.status_code == 422
+        assert response.json()['detail'][0]['msg'] == "Value error, Username must be 3 to 20 characters long"
 
     def test_create_user_weak_password(self, client, session):
         response = client.post("/users", json={"username": self.valid_username, "password": "WeakPassword"})
-        assert response.status_code == 400
-        assert response.json() == {"detail": "Password must contain more than seven characters with at least one lowercase letter, uppercase letter, digit, and special symbol"}
+        assert response.status_code == 422
+        assert response.json()['detail'][0]['msg'] == "Value error, Password must contain more than seven characters with at least one lowercase letter, uppercase letter, digit, and special symbol"
 
     def test_create_user_missing_username(self, client, session):
         response = client.post("/users", json={"password": self.strong_password})
